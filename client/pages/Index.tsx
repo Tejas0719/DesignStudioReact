@@ -42,18 +42,27 @@ const Index: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b border-dms-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-dms-primary">Document Management System</h1>
+      {/* Design Studio Header */}
+      <DesignStudioHeader
+        userName="Chetan More"
+        userRole="Simplify SuperUser"
+        tenant="eMS_STD"
+      />
+
+      {/* Main Content - Add top margin to account for fixed header */}
+      <div className="pt-[52px]">
+        {/* Document Management System Subheader */}
+        <div className="bg-white shadow-sm border-b border-dms-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <div className="flex items-center">
+                <h1 className="text-xl font-semibold text-dms-primary">Document Management System</h1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Main Card */}
         <div className="bg-white rounded-lg shadow-sm border border-dms-border overflow-hidden">
           {/* Navigation Tabs */}
@@ -264,6 +273,7 @@ const Index: React.FC = () => {
             <p className="text-sm sm:text-base">No recent activity to display</p>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Footer */}
