@@ -246,10 +246,10 @@ const Index: React.FC = () => {
         </div>
 
         {/* Activity Log Section */}
-        <div className="mt-6 bg-white border border-dms-border rounded-lg p-6">
-          <div className="bg-dms-primary text-white rounded-t-lg px-6 py-3 -mx-6 -mt-6 mb-6">
+        <div className="mt-6 bg-white border border-dms-border rounded-lg p-4 sm:p-6">
+          <div className="bg-dms-primary text-white rounded-t-lg px-4 sm:px-6 py-3 -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 mb-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Activity Log</h3>
+              <h3 className="text-base sm:text-lg font-semibold">Activity Log</h3>
               <div className="flex items-center space-x-2">
                 <button className="p-1 rounded hover:bg-white/20 transition-colors">
                   <span className="sr-only">Options</span>
@@ -260,7 +260,7 @@ const Index: React.FC = () => {
           </div>
 
           <div className="text-center py-8 text-gray-500">
-            <p>No recent activity to display</p>
+            <p className="text-sm sm:text-base">No recent activity to display</p>
           </div>
         </div>
       </div>
