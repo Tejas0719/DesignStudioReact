@@ -66,16 +66,6 @@ const Index: React.FC = () => {
       <div className={`pt-[52px] transition-all duration-300 ease-in-out ${
         isSidebarOpen ? 'lg:ml-64 ml-0' : 'lg:ml-16 ml-0'
       }`}>
-        {/* Document Management System Subheader */}
-        <div className="bg-white shadow-sm border-b border-dms-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center">
-                <h1 className="text-xl font-semibold text-dms-primary">Document Management System</h1>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Main Card */}
