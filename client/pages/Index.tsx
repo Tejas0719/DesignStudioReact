@@ -57,18 +57,18 @@ const Index: React.FC = () => {
         <div className="bg-white rounded-lg shadow-sm border border-dms-border overflow-hidden">
           {/* Navigation Tabs */}
           <div className="border-b border-dms-border bg-white">
-            <nav className="flex space-x-8 px-6" aria-label="Tabs">
+            <nav className="flex flex-wrap sm:space-x-8 px-4 sm:px-6" aria-label="Tabs">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={
+                  className={`${
                     activeTab === tab.id
                       ? 'dms-tab-active'
                       : 'dms-tab-inactive'
-                  }
+                  } flex-1 sm:flex-none text-center sm:text-left min-w-0`}
                 >
-                  {tab.label}
+                  <span className="truncate">{tab.label}</span>
                 </button>
               ))}
             </nav>
