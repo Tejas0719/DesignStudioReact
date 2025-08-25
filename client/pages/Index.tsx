@@ -79,7 +79,7 @@ const Index: React.FC = () => {
             {activeTab === 'documents' && (
               <>
                 {/* Document Design Tab */}
-                <div className="bg-white border border-dms-border rounded-lg p-6 mb-6">
+                <div className="bg-white border border-dms-border rounded-lg p-4 sm:p-6 mb-6">
                   <div className="border-b border-dms-border pb-4 mb-6">
                     <h3 className="text-lg font-semibold text-dms-primary bg-white px-4 py-2 border border-dms-border rounded-t-lg">
                       Document Designs
