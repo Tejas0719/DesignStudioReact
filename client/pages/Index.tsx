@@ -53,6 +53,7 @@ const Index: React.FC = () => {
         userName="Chetan More"
         userRole="Simplify SuperUser"
         tenant="eMS_STD"
+        onMobileMenuToggle={handleSidebarToggle}
       />
 
       {/* Navigation Sidebar */}
