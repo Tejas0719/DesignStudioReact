@@ -5,6 +5,7 @@ interface DesignStudioHeaderProps {
   userName?: string;
   userRole?: string;
   tenant?: string;
+  onMobileMenuToggle?: () => void;
 }
 
 const DesignStudioHeader: React.FC<DesignStudioHeaderProps> = ({
