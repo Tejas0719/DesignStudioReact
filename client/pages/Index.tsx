@@ -110,41 +110,27 @@ const Index: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Benefit Categories Table */}
+                  {/* Benefit Categories - Responsive Layout */}
                   <div className="bg-white border border-dms-border rounded-lg overflow-hidden">
-                    <table className="w-full">
-                      <tbody className="divide-y divide-dms-border">
-                        {benefitCategories.map((category, index) => (
-                          <tr key={category.id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 w-1/4">
-                              <label>
-                                <span>{category.label}</span>
-                              </label>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap w-1/4">
-                              <div className="relative">
-                                <select
-                                  value={categories[category.id] || '0'}
-                                  onChange={(e) => handleCategoryChange(category.id, e.target.value)}
-                                  className="dms-select w-full pr-8"
-                                >
-                                  <option value="0">Select One</option>
-                                </select>
-                                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                              </div>
-                            </td>
-                            {index % 2 === 0 && index + 1 < benefitCategories.length && (
-                              <>
+                    {/* Desktop Table View */}
+                    <div className="hidden md:block">
+                      <table className="w-full">
+                        <tbody className="divide-y divide-dms-border">
+                          {Array.from({ length: Math.ceil(benefitCategories.length / 2) }, (_, index) => {
+                            const leftCategory = benefitCategories[index * 2];
+                            const rightCategory = benefitCategories[index * 2 + 1];
+                            return (
+                              <tr key={leftCategory.id} className="hover:bg-gray-50">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 w-1/4">
                                   <label>
-                                    <span>{benefitCategories[index + 1].label}</span>
+                                    <span>{leftCategory.label}</span>
                                   </label>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap w-1/4">
                                   <div className="relative">
                                     <select
-                                      value={categories[benefitCategories[index + 1].id] || '0'}
-                                      onChange={(e) => handleCategoryChange(benefitCategories[index + 1].id, e.target.value)}
+                                      value={categories[leftCategory.id] || '0'}
+                                      onChange={(e) => handleCategoryChange(leftCategory.id, e.target.value)}
                                       className="dms-select w-full pr-8"
                                     >
                                       <option value="0">Select One</option>
@@ -152,12 +138,62 @@ const Index: React.FC = () => {
                                     <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
                                   </div>
                                 </td>
-                              </>
-                            )}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                                {rightCategory && (
+                                  <>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700 w-1/4">
+                                      <label>
+                                        <span>{rightCategory.label}</span>
+                                      </label>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap w-1/4">
+                                      <div className="relative">
+                                        <select
+                                          value={categories[rightCategory.id] || '0'}
+                                          onChange={(e) => handleCategoryChange(rightCategory.id, e.target.value)}
+                                          className="dms-select w-full pr-8"
+                                        >
+                                          <option value="0">Select One</option>
+                                        </select>
+                                        <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                                      </div>
+                                    </td>
+                                  </>
+                                )}
+                                {!rightCategory && (
+                                  <>
+                                    <td className="px-6 py-4 w-1/4"></td>
+                                    <td className="px-6 py-4 w-1/4"></td>
+                                  </>
+                                )}
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden divide-y divide-dms-border">
+                      {benefitCategories.map((category) => (
+                        <div key={category.id} className="p-4">
+                          <div className="flex flex-col space-y-2">
+                            <label className="text-sm font-medium text-gray-700">
+                              {category.label}
+                            </label>
+                            <div className="relative">
+                              <select
+                                value={categories[category.id] || '0'}
+                                onChange={(e) => handleCategoryChange(category.id, e.target.value)}
+                                className="dms-select w-full pr-8"
+                              >
+                                <option value="0">Select One</option>
+                              </select>
+                              <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
