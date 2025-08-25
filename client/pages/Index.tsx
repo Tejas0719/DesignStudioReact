@@ -124,9 +124,8 @@ const Index: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* No benefit categories configured */}
-                  <div className="bg-white border border-dms-border rounded-lg p-6 text-center">
-                    <p className="text-gray-500">No benefit categories configured</p>
+                  {/* Benefit categories section - kept blank */}
+                  <div className="bg-white border border-dms-border rounded-lg p-6">
                   </div>
                 </div>
 
