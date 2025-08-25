@@ -10,8 +10,9 @@ interface DesignStudioHeaderProps {
 
 const DesignStudioHeader: React.FC<DesignStudioHeaderProps> = ({
   userName = "Chetan More",
-  userRole = "Simplify SuperUser", 
-  tenant = "eMS_STD"
+  userRole = "Simplify SuperUser",
+  tenant = "eMS_STD",
+  onMobileMenuToggle
 }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
