@@ -66,11 +66,11 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
       )}
       
       {/* Sidebar */}
-      <nav 
+      <nav
         role="navigation"
         className={`fixed top-[52px] left-0 h-[calc(100vh-52px)] bg-[rgb(0,61,93)] text-center z-[1005] transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? 'w-64' : 'w-16'
-        }`}
+          isSidebarOpen ? 'w-64' : 'w-16 lg:w-16 -translate-x-full lg:translate-x-0'
+        } ${isSidebarOpen ? 'translate-x-0' : ''}`}
       >
         <ul className="h-full overflow-y-auto overflow-x-hidden pb-12 text-center w-full">
           {/* Menu Toggle Button */}
