@@ -52,12 +52,12 @@ const Index: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Main Card */}
         <div className="bg-white rounded-lg shadow-sm border border-dms-border overflow-hidden">
           {/* Navigation Tabs */}
           <div className="border-b border-dms-border bg-white">
-            <nav className="flex flex-wrap sm:space-x-8 px-4 sm:px-6" aria-label="Tabs">
+            <nav className="flex flex-wrap sm:space-x-8 px-2 sm:px-4 lg:px-6" aria-label="Tabs">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
@@ -66,7 +66,7 @@ const Index: React.FC = () => {
                     activeTab === tab.id
                       ? 'dms-tab-active'
                       : 'dms-tab-inactive'
-                  } flex-1 sm:flex-none text-center sm:text-left min-w-0`}
+                  } flex-1 sm:flex-none text-center sm:text-left min-w-0 text-xs sm:text-sm`}
                 >
                   <span className="truncate">{tab.label}</span>
                 </button>
@@ -75,7 +75,7 @@ const Index: React.FC = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {activeTab === 'documents' && (
               <>
                 {/* Document Design Tab */}
