@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Custom DMS colors
+        dms: {
+          primary: "hsl(var(--dms-primary))",
+          "primary-light": "hsl(var(--dms-primary-light))",
+          secondary: "hsl(var(--dms-secondary))",
+          border: "hsl(var(--dms-border))",
+          "gray-light": "hsl(var(--dms-gray-light))",
+          "text-muted": "hsl(var(--dms-text-muted))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
