@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, BarChart3, Layers, FileText, Settings, Assessment } from 'lucide-react';
+import { Menu, X, BarChart3, Layers, FileText, Settings, Activity } from 'lucide-react';
 
 interface NavigationSidebarProps {
   isOpen?: boolean;
@@ -42,8 +42,8 @@ const NavigationSidebar: React.FC<NavigationSidebarProps> = ({
     {
       id: 'extended-hangfire',
       label: 'Extended Hangfire',
-      icon: Assessment,
-      href: 'https://b1medicare-dev.simplifyhealthcloud.com/ExtendedHangfire/Index', 
+      icon: Activity,
+      href: 'https://b1medicare-dev.simplifyhealthcloud.com/ExtendedHangfire/Index',
       isActive: false
     },
     {
