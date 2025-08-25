@@ -63,7 +63,7 @@ const Index: React.FC = () => {
 
       {/* Main Content - Add top margin for header and left margin for sidebar */}
       <div className={`pt-[52px] transition-all duration-300 ease-in-out ${
-        isSidebarOpen ? 'ml-64' : 'ml-16'
+        isSidebarOpen ? 'lg:ml-64 ml-0' : 'lg:ml-16 ml-0'
       }`}>
         {/* Document Management System Subheader */}
         <div className="bg-white shadow-sm border-b border-dms-border">
