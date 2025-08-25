@@ -198,12 +198,12 @@ const Index: React.FC = () => {
                 </div>
 
                 {/* Collateral Section */}
-                <div className="bg-white border border-dms-border rounded-lg p-6">
-                  <div className="flex items-center gap-4 mb-6">
-                    <label className="text-sm font-medium text-gray-700 min-w-[140px]">
+                <div className="bg-white border border-dms-border rounded-lg p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <label className="text-sm font-medium text-gray-700 sm:min-w-[140px]">
                       Collateral Name
                     </label>
-                    <div className="relative flex-1 max-w-sm">
+                    <div className="relative flex-1 sm:max-w-sm">
                       <select
                         value={collateralName}
                         onChange={(e) => setCollateralName(e.target.value)}
@@ -213,11 +213,11 @@ const Index: React.FC = () => {
                       </select>
                       <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
                     </div>
-                    <div className="flex gap-4">
-                      <button className="dms-button-primary">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                      <button className="dms-button-primary w-full sm:w-auto">
                         View Report
                       </button>
-                      <button className="dms-button-primary">
+                      <button className="dms-button-primary w-full sm:w-auto">
                         Generate Report
                       </button>
                     </div>
