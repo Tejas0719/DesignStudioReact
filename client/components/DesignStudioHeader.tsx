@@ -24,9 +24,18 @@ const DesignStudioHeader: React.FC<DesignStudioHeaderProps> = ({
     <header className="fixed top-0 left-0 w-full h-[52px] bg-white shadow-md border-b-2 border-gray-200 flex items-center justify-between px-6 z-[1006] transition-all duration-200 ease-in-out">
       {/* Left Section */}
       <div className="flex items-center">
-        <a 
+        {/* Mobile Menu Button */}
+        <button
+          onClick={onMobileMenuToggle}
+          className="lg:hidden mr-4 p-2 rounded-md text-[rgb(0,61,93)] hover:bg-gray-100 transition-colors"
+          aria-label="Toggle navigation menu"
+        >
+          <Menu size={24} />
+        </button>
+
+        <a
           href="https://b1medicare-dev.simplifyhealthcloud.com/Overview/Index"
-          className="text-lg font-semibold text-[rgb(0,61,93)] border-b-[0.888889px] border-[rgb(0,61,93)] ml-[70px] cursor-pointer hover:opacity-80 transition-opacity"
+          className="text-lg font-semibold text-[rgb(0,61,93)] border-b-[0.888889px] border-[rgb(0,61,93)] lg:ml-[70px] ml-0 cursor-pointer hover:opacity-80 transition-opacity"
         >
           Design Studio
         </a>
