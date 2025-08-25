@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, ChevronDown } from 'lucide-react';
+import { User, ChevronDown, Menu } from 'lucide-react';
 
 interface DesignStudioHeaderProps {
   userName?: string;
