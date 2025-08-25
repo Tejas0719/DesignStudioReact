@@ -292,7 +292,7 @@ const Index: React.FC = () => {
 
       {/* Footer */}
       <footer className={`bg-dms-primary text-white py-4 mt-12 transition-all duration-300 ease-in-out ${
-        isSidebarOpen ? 'ml-64' : 'ml-16'
+        isSidebarOpen ? 'lg:ml-64 ml-0' : 'lg:ml-16 ml-0'
       }`}>
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm">
