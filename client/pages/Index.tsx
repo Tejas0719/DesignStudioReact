@@ -87,15 +87,15 @@ const Index: React.FC = () => {
                   </div>
 
                   {/* Document Design Type Selection */}
-                  <div className="flex items-center gap-4 mb-6">
-                    <label className="text-sm font-medium text-gray-700 min-w-[160px]">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                    <label className="text-sm font-medium text-gray-700 sm:min-w-[160px]">
                       Document Design Type:
                     </label>
-                    <div className="relative min-w-[250px]">
+                    <div className="relative flex-1 sm:min-w-[250px] sm:flex-none">
                       <select
                         value={documentType}
                         onChange={(e) => setDocumentType(e.target.value)}
-                        className="dms-select pr-8"
+                        className="dms-select pr-8 w-full"
                       >
                         {documentTypes.map((type) => (
                           <option key={type.value} value={type.value}>
@@ -105,7 +105,7 @@ const Index: React.FC = () => {
                       </select>
                       <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
                     </div>
-                    <button className="dms-button-primary opacity-0 pointer-events-none">
+                    <button className="dms-button-primary opacity-0 pointer-events-none hidden sm:block">
                       Add
                     </button>
                   </div>
