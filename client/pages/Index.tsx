@@ -291,8 +291,10 @@ const Index: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-dms-primary text-white py-4 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <footer className={`bg-dms-primary text-white py-4 mt-12 transition-all duration-300 ease-in-out ${
+        isSidebarOpen ? 'ml-64' : 'ml-16'
+      }`}>
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm">
             © Copyright 2025 Simplify Healthcare Technology, All Rights Reserved.
           </p>
