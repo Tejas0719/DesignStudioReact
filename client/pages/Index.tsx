@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import DesignStudioHeader from '../components/DesignStudioHeader';
+import NavigationSidebar from '../components/NavigationSidebar';
 
 interface BenefitCategory {
   id: string;
@@ -28,9 +29,14 @@ const Index: React.FC = () => {
   const [documentType, setDocumentType] = useState('0');
   const [categories, setCategories] = useState<Record<string, string>>({});
   const [collateralName, setCollateralName] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleCategoryChange = (categoryId: string, value: string) => {
     setCategories(prev => ({ ...prev, [categoryId]: value }));
+  };
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const tabs = [
@@ -49,8 +55,16 @@ const Index: React.FC = () => {
         tenant="eMS_STD"
       />
 
-      {/* Main Content - Add top margin to account for fixed header */}
-      <div className="pt-[52px]">
+      {/* Navigation Sidebar */}
+      <NavigationSidebar
+        isOpen={isSidebarOpen}
+        onToggle={handleSidebarToggle}
+      />
+
+      {/* Main Content - Add top margin for header and left margin for sidebar */}
+      <div className={`pt-[52px] transition-all duration-300 ease-in-out ${
+        isSidebarOpen ? 'ml-64' : 'ml-16'
+      }`}>
         {/* Document Management System Subheader */}
         <div className="bg-white shadow-sm border-b border-dms-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +76,7 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         {/* Main Card */}
         <div className="bg-white rounded-lg shadow-sm border border-dms-border overflow-hidden">
           {/* Navigation Tabs */}
