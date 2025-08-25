@@ -10,9 +10,7 @@ interface BenefitCategory {
 }
 
 const benefitCategories: BenefitCategory[] = [
-  { id: 'category1', label: 'Benefit Category1', value: '' },
   { id: 'category2', label: 'Benefit Category2', value: '' },
-  { id: 'category3', label: 'Benefit Category3', value: '' },
   { id: 'seseid', label: 'SESEID', value: '' },
 ];
 
@@ -28,7 +26,6 @@ const Index: React.FC = () => {
   const [activeTab, setActiveTab] = useState('documents');
   const [documentType, setDocumentType] = useState('0');
   const [categories, setCategories] = useState<Record<string, string>>({});
-  const [collateralName, setCollateralName] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleCategoryChange = (categoryId: string, value: string) => {
@@ -212,32 +209,6 @@ const Index: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Collateral Section */}
-                <div className="bg-white border border-dms-border rounded-lg p-4 sm:p-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <label className="text-sm font-medium text-gray-700 sm:min-w-[140px]">
-                      Collateral Name
-                    </label>
-                    <div className="relative flex-1 sm:max-w-sm">
-                      <select
-                        value={collateralName}
-                        onChange={(e) => setCollateralName(e.target.value)}
-                        className="dms-select w-full pr-8"
-                      >
-                        <option value="">Select Collateral</option>
-                      </select>
-                      <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                      <button className="dms-button-primary w-full sm:w-auto">
-                        View Report
-                      </button>
-                      <button className="dms-button-primary w-full sm:w-auto">
-                        Generate Report
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </>
             )}
 
