@@ -35,7 +35,7 @@ const DesignStudioHeader: React.FC<DesignStudioHeaderProps> = ({
 
         <a
           href="https://b1medicare-dev.simplifyhealthcloud.com/Overview/Index"
-          className="text-lg font-semibold text-[rgb(0,61,93)] border-b-[0.888889px] border-[rgb(0,61,93)] lg:ml-[70px] ml-0 cursor-pointer hover:opacity-80 transition-opacity"
+          className="text-lg font-semibold text-[rgb(0,61,93)] border-b-[0.888889px] border-[rgb(0,61,93)] lg:ml-4 ml-0 cursor-pointer hover:opacity-80 transition-opacity"
         >
           Design Studio
         </a>
