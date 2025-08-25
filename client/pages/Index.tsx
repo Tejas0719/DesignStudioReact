@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import DesignStudioHeader from '../components/DesignStudioHeader';
 
 interface BenefitCategory {
   id: string;
