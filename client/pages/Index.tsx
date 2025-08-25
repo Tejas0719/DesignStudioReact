@@ -24,6 +24,7 @@ const Index: React.FC = () => {
   const [documentType, setDocumentType] = useState('0');
   const [categories, setCategories] = useState<Record<string, string>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isActivityLogExpanded, setIsActivityLogExpanded] = useState(true);
 
   const handleCategoryChange = (categoryId: string, value: string) => {
     setCategories(prev => ({ ...prev, [categoryId]: value }));
@@ -31,6 +32,10 @@ const Index: React.FC = () => {
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleActivityLog = () => {
+    setIsActivityLogExpanded(!isActivityLogExpanded);
   };
 
   const tabs = [
@@ -148,21 +153,33 @@ const Index: React.FC = () => {
         </div>
 
         {/* Activity Log Section */}
-        <div className="mt-6 bg-white border border-dms-border rounded-lg p-4 sm:p-6">
-          <div className="bg-dms-primary text-white rounded-t-lg px-4 sm:px-6 py-3 -mx-4 sm:-mx-6 -mt-4 sm:-mt-6 mb-6">
+        <div className="mt-6 bg-white border border-dms-border rounded-lg overflow-hidden">
+          <div className="bg-dms-primary text-white px-4 sm:px-6 py-3">
             <div className="flex items-center justify-between">
               <h3 className="text-base sm:text-lg font-semibold">Activity Log</h3>
-              <div className="flex items-center space-x-2">
-                <button className="p-1 rounded hover:bg-white/20 transition-colors">
-                  <span className="sr-only">Options</span>
-                  <div className="w-1 h-1 bg-white rounded-full"></div>
-                </button>
-              </div>
+              <button
+                onClick={toggleActivityLog}
+                className="p-1 rounded hover:bg-white/20 transition-all duration-200 flex items-center justify-center"
+                aria-label={isActivityLogExpanded ? 'Collapse Activity Log' : 'Expand Activity Log'}
+              >
+                <ChevronDown
+                  size={20}
+                  className={`text-white transition-transform duration-200 ${
+                    isActivityLogExpanded ? 'rotate-180' : 'rotate-0'
+                  }`}
+                />
+              </button>
             </div>
           </div>
 
-          <div className="text-center py-8 text-gray-500">
-            <p className="text-sm sm:text-base">No recent activity to display</p>
+          <div
+            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+              isActivityLogExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            }`}
+          >
+            <div className="p-4 sm:p-6 text-center py-8 text-gray-500">
+              <p className="text-sm sm:text-base">No recent activity to display</p>
+            </div>
           </div>
         </div>
       </div>
