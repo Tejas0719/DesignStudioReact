@@ -10,7 +10,6 @@ interface BenefitCategory {
 }
 
 const benefitCategories: BenefitCategory[] = [
-  { id: 'category2', label: 'Benefit Category2', value: '' },
   { id: 'seseid', label: 'SESEID', value: '' },
 ];
 
