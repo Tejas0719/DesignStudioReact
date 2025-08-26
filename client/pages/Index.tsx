@@ -158,8 +158,66 @@ const Index: React.FC = () => {
                     </button>
                   </div>
 
-                  {/* Benefit categories section - kept blank */}
+                  {/* Document Designs Data */}
                   <div className="bg-white border border-dms-border rounded-lg p-6">
+                    {isLoading && (
+                      <div className="flex items-center justify-center py-8">
+                        <Loader2 className="h-6 w-6 animate-spin text-dms-primary mr-2" />
+                        <span className="text-gray-600">Loading document designs...</span>
+                      </div>
+                    )}
+
+                    {error && (
+                      <div className="text-center py-8">
+                        <p className="text-red-500 text-sm">{error}</p>
+                      </div>
+                    )}
+
+                    {!isLoading && !error && documentDesigns.length === 0 && documentType !== '0' && (
+                      <div className="text-center py-8">
+                        <p className="text-gray-500 text-sm">No document designs found for this type</p>
+                      </div>
+                    )}
+
+                    {!isLoading && !error && documentDesigns.length > 0 && (
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold text-dms-primary mb-4">
+                          Document Designs ({documentDesigns.length})
+                        </h4>
+                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                          {documentDesigns.map((design) => (
+                            <div
+                              key={design.id}
+                              className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                            >
+                              <div className="flex items-start justify-between mb-2">
+                                <h5 className="font-semibold text-gray-900 text-sm">{design.name}</h5>
+                                <span className={`inline-block px-2 py-1 text-xs rounded-full ${
+                                  design.status === 'Active'
+                                    ? 'bg-green-100 text-green-800'
+                                    : design.status === 'Draft'
+                                    ? 'bg-yellow-100 text-yellow-800'
+                                    : 'bg-gray-100 text-gray-800'
+                                }`}>
+                                  {design.status}
+                                </span>
+                              </div>
+                              <p className="text-gray-600 text-sm mb-3">{design.description}</p>
+                              <div className="flex justify-between items-center text-xs text-gray-500">
+                                <span>v{design.version}</span>
+                                <span>{design.createdDate}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {documentType === '0' && (
+                      <div className="text-center py-8">
+                        <p className="text-gray-500 text-sm">Please select a document design type to view available designs</p>
+                      </div>
+                    )}
                   </div>
                 </div>
 
