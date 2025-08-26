@@ -82,8 +82,22 @@ const Index: React.FC = () => {
         throw new Error("Failed to fetch document types");
       }
 
-      const data: DocumentTypesResponse = await response.json();
-      setDocumentTypes(data.types);
+      const data = await response.json();
+
+      // Handle different response formats from external API
+      if (data.types && Array.isArray(data.types)) {
+        setDocumentTypes(data.types);
+      } else if (Array.isArray(data)) {
+        // If the API returns an array directly
+        const transformedTypes = data.map((item: any) => ({
+          value: item.id || item.value || item.typeId || String(item),
+          label: item.name || item.label || item.typeName || String(item),
+          description: item.description || item.desc
+        }));
+        setDocumentTypes([{ value: "0", label: "--Select--" }, ...transformedTypes]);
+      } else {
+        throw new Error("Invalid response format from external API");
+      }
     } catch (err) {
       setTypesError(err instanceof Error ? err.message : "Failed to load document types");
       // Fallback to a basic structure if API fails
