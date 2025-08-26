@@ -12,14 +12,6 @@ interface BenefitCategory {
 
 const benefitCategories: BenefitCategory[] = [];
 
-const documentTypes = [
-  { value: "0", label: "--Select--" },
-  { value: "1", label: "Anchor" },
-  { value: "2", label: "MasterList" },
-  { value: "11", label: "Collateral" },
-  { value: "14", label: "View" },
-];
-
 const Index: React.FC = () => {
   const [activeTab, setActiveTab] = useState("documents");
   const [documentType, setDocumentType] = useState("0");
