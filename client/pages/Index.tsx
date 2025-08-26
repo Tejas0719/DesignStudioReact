@@ -69,6 +69,31 @@ const Index: React.FC = () => {
     fetchDocumentDesigns(newType);
   };
 
+  const fetchDocumentTypes = async () => {
+    setIsLoadingTypes(true);
+    setTypesError(null);
+
+    try {
+      const response = await fetch("/api/document-types");
+      if (!response.ok) {
+        throw new Error("Failed to fetch document types");
+      }
+
+      const data: DocumentTypesResponse = await response.json();
+      setDocumentTypes(data.types);
+    } catch (err) {
+      setTypesError(err instanceof Error ? err.message : "Failed to load document types");
+      // Fallback to a basic structure if API fails
+      setDocumentTypes([{ value: "0", label: "--Select--" }]);
+    } finally {
+      setIsLoadingTypes(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDocumentTypes();
+  }, []);
+
   const tabs = [
     { id: "documents", label: "Documents", active: true },
     { id: "folder", label: "Folder", active: false },
