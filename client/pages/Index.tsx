@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
 import DesignStudioHeader from "../components/DesignStudioHeader";
 import NavigationSidebar from "../components/NavigationSidebar";
-import { DocumentDesignResponse, DocumentDesignData } from "@shared/api";
+import { DocumentDesignResponse, DocumentDesignData, DocumentType, DocumentTypesResponse } from "@shared/api";
 
 interface BenefitCategory {
   id: string;
