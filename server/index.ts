@@ -22,6 +22,7 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
   app.get("/api/document-types", handleDocumentTypes);
+  app.get("/api/form-design/document-types", handleDocumentDesignTypeProxy);
   app.get("/api/document-designs/:type", handleDocumentDesigns);
 
   return app;
