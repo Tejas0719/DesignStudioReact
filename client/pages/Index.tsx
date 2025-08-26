@@ -98,8 +98,14 @@ const Index: React.FC = () => {
       } else {
         throw new Error("Invalid response format from external API");
       }
+
+      // Handle error response from proxy
+      if (data.error) {
+        setTypesError(data.error);
+      }
     } catch (err) {
-      setTypesError(err instanceof Error ? err.message : "Failed to load document types");
+      const errorMessage = err instanceof Error ? err.message : "Failed to load document types";
+      setTypesError(errorMessage);
       // Fallback to a basic structure if API fails
       setDocumentTypes([{ value: "0", label: "--Select--" }]);
     } finally {
