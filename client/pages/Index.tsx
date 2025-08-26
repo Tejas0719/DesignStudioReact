@@ -76,7 +76,7 @@ const Index: React.FC = () => {
     setTypesError(null);
 
     try {
-      const response = await fetch("https://localhost:7129/api/v2/FormDesign/DocumentDesignType");
+      const response = await fetch("/api/form-design/document-types");
 
       if (!response.ok) {
         throw new Error("Failed to fetch document types");
