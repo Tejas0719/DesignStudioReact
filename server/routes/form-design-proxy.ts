@@ -63,11 +63,23 @@ export const handleDocumentDesignTypeProxy: RequestHandler = async (req, res) =>
 
   } catch (error) {
     console.error("❌ Error proxying to external FormDesign API:", error);
-    
-    // Return fallback data if external API fails
-    res.status(500).json({
-      error: "Failed to fetch document design types from external API",
-      types: [{ value: "0", label: "--Select--" }]
+
+    let errorMessage = "Failed to fetch document design types from external API";
+    if (error instanceof Error) {
+      if (error.message.includes("ECONNREFUSED")) {
+        errorMessage = "External FormDesign API is not accessible. Please ensure the API server at https://localhost:7129 is running.";
+      } else if (error.message.includes("fetch failed")) {
+        errorMessage = "Network error connecting to external FormDesign API.";
+      }
+    }
+
+    // Return error info with fallback data
+    res.json({
+      error: errorMessage,
+      types: [
+        { value: "0", label: "--Select--" },
+        { value: "error", label: "⚠️ API Connection Failed" }
+      ]
     });
   }
 };
