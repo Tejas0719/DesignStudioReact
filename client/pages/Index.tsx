@@ -76,8 +76,7 @@ const Index: React.FC = () => {
     setTypesError(null);
 
     try {
-      const cacheBuster = new Date().getTime();
-      const response = await fetch(`/api/document-types?_t=${cacheBuster}`);
+      const response = await fetch("https://localhost:7129/api/v2/FormDesign/DocumentDesignType");
 
       if (!response.ok) {
         throw new Error("Failed to fetch document types");
