@@ -79,6 +79,44 @@ const mockData: Record<string, DocumentDesignData[]> = {
       version: "2.2.1",
     },
   ],
+  "3": [
+    // Report
+    {
+      id: "report_1",
+      name: "Financial Report Template",
+      description: "Standard financial reporting template",
+      createdDate: "2025-01-14",
+      status: "Active",
+      version: "1.1.0",
+    },
+    {
+      id: "report_2",
+      name: "Performance Report Template",
+      description: "KPI and performance metrics reporting",
+      createdDate: "2025-01-12",
+      status: "Active",
+      version: "1.0.5",
+    },
+  ],
+  "4": [
+    // Form
+    {
+      id: "form_1",
+      name: "Contact Form Template",
+      description: "Basic contact information form",
+      createdDate: "2025-01-15",
+      status: "Active",
+      version: "2.0.0",
+    },
+    {
+      id: "form_2",
+      name: "Survey Form Template",
+      description: "Interactive survey and feedback form",
+      createdDate: "2025-01-10",
+      status: "Draft",
+      version: "1.5.0",
+    },
+  ],
 };
 
 export const handleDocumentDesigns: RequestHandler = (req, res) => {
