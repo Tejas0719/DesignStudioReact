@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { ChevronDown, Loader2 } from "lucide-react";
 import DesignStudioHeader from "../components/DesignStudioHeader";
 import NavigationSidebar from "../components/NavigationSidebar";
-import { DocumentDesignResponse, DocumentDesignData, DocumentType, DocumentTypesResponse } from "@shared/api";
+import {
+  DocumentDesignResponse,
+  DocumentDesignData,
+  DocumentType,
+  DocumentTypesResponse,
+} from "@shared/api";
 
 interface BenefitCategory {
   id: string;
@@ -22,7 +27,7 @@ const Index: React.FC = () => {
     [],
   );
   const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([
-    { value: "0", label: "Loading..." }
+    { value: "0", label: "Loading..." },
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingTypes, setIsLoadingTypes] = useState(true);
@@ -92,9 +97,12 @@ const Index: React.FC = () => {
         const transformedTypes = data.map((item: any) => ({
           value: item.id || item.value || item.typeId || String(item),
           label: item.name || item.label || item.typeName || String(item),
-          description: item.description || item.desc
+          description: item.description || item.desc,
         }));
-        setDocumentTypes([{ value: "0", label: "--Select--" }, ...transformedTypes]);
+        setDocumentTypes([
+          { value: "0", label: "--Select--" },
+          ...transformedTypes,
+        ]);
       } else {
         throw new Error("Invalid response format from external API");
       }
@@ -104,7 +112,8 @@ const Index: React.FC = () => {
         setTypesError(data.error);
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to load document types";
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to load document types";
       setTypesError(errorMessage);
       // Fallback to a basic structure if API fails
       setDocumentTypes([{ value: "0", label: "--Select--" }]);
@@ -198,14 +207,14 @@ const Index: React.FC = () => {
                           disabled={isLoadingTypes}
                         >
                           {isLoadingTypes ? (
-                          <option value="0">Loading types...</option>
-                        ) : (
-                          documentTypes.map((type) => (
-                            <option key={type.value} value={type.value}>
-                              {type.label}
-                            </option>
-                          ))
-                        )}
+                            <option value="0">Loading types...</option>
+                          ) : (
+                            documentTypes.map((type) => (
+                              <option key={type.value} value={type.value}>
+                                {type.label}
+                              </option>
+                            ))
+                          )}
                         </select>
                         {isLoadingTypes ? (
                           <Loader2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 animate-spin text-gray-400" />
