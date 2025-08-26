@@ -77,7 +77,8 @@ const Index: React.FC = () => {
     setTypesError(null);
 
     try {
-      const response = await fetch("/api/document-types");
+      const cacheBuster = new Date().getTime();
+      const response = await fetch(`/api/document-types?_t=${cacheBuster}`);
       console.log("📡 API Response status:", response.status);
 
       if (!response.ok) {
