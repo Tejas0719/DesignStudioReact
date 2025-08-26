@@ -181,14 +181,17 @@ const Index: React.FC = () => {
                           disabled={isLoadingTypes}
                         >
                           {isLoadingTypes ? (
-                            <option value="0">Loading types...</option>
-                          ) : (
-                            documentTypes.map((type) => (
+                          <option value="0">Loading types...</option>
+                        ) : (
+                          documentTypes.map((type) => {
+                            console.log("🎯 Rendering option:", type);
+                            return (
                               <option key={type.value} value={type.value}>
                                 {type.label}
                               </option>
-                            ))
-                          )}
+                            );
+                          })
+                        )}
                         </select>
                         {isLoadingTypes ? (
                           <Loader2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 animate-spin text-gray-400" />
