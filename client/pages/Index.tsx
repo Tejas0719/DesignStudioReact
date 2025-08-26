@@ -70,23 +70,29 @@ const Index: React.FC = () => {
   };
 
   const fetchDocumentTypes = async () => {
+    console.log("🔄 Starting to fetch document types...");
     setIsLoadingTypes(true);
     setTypesError(null);
 
     try {
       const response = await fetch("/api/document-types");
+      console.log("📡 API Response status:", response.status);
+
       if (!response.ok) {
         throw new Error("Failed to fetch document types");
       }
 
       const data: DocumentTypesResponse = await response.json();
+      console.log("📦 Fetched document types:", data.types);
       setDocumentTypes(data.types);
     } catch (err) {
+      console.error("❌ Error fetching document types:", err);
       setTypesError(err instanceof Error ? err.message : "Failed to load document types");
       // Fallback to a basic structure if API fails
       setDocumentTypes([{ value: "0", label: "--Select--" }]);
     } finally {
       setIsLoadingTypes(false);
+      console.log("✅ Document types fetch completed");
     }
   };
 
