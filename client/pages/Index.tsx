@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Loader2 } from 'lucide-react';
 import DesignStudioHeader from '../components/DesignStudioHeader';
 import NavigationSidebar from '../components/NavigationSidebar';
+import { DocumentDesignResponse, DocumentDesignData } from '@shared/api';
 
 interface BenefitCategory {
   id: string;
@@ -25,6 +26,9 @@ const Index: React.FC = () => {
   const [categories, setCategories] = useState<Record<string, string>>({});
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isActivityLogExpanded, setIsActivityLogExpanded] = useState(true);
+  const [documentDesigns, setDocumentDesigns] = useState<DocumentDesignData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleCategoryChange = (categoryId: string, value: string) => {
     setCategories(prev => ({ ...prev, [categoryId]: value }));
@@ -36,6 +40,36 @@ const Index: React.FC = () => {
 
   const toggleActivityLog = () => {
     setIsActivityLogExpanded(!isActivityLogExpanded);
+  };
+
+  const fetchDocumentDesigns = async (type: string) => {
+    if (type === '0') {
+      setDocumentDesigns([]);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/document-designs/${type}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch document designs');
+      }
+
+      const data: DocumentDesignResponse = await response.json();
+      setDocumentDesigns(data.data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      setDocumentDesigns([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDocumentTypeChange = (newType: string) => {
+    setDocumentType(newType);
+    fetchDocumentDesigns(newType);
   };
 
   const tabs = [
@@ -108,7 +142,7 @@ const Index: React.FC = () => {
                     <div className="relative flex-1 sm:min-w-[250px] sm:flex-none">
                       <select
                         value={documentType}
-                        onChange={(e) => setDocumentType(e.target.value)}
+                        onChange={(e) => handleDocumentTypeChange(e.target.value)}
                         className="dms-select pr-8 w-full"
                       >
                         {documentTypes.map((type) => (
