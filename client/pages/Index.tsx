@@ -21,8 +21,11 @@ const Index: React.FC = () => {
   const [documentDesigns, setDocumentDesigns] = useState<DocumentDesignData[]>(
     [],
   );
+  const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingTypes, setIsLoadingTypes] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [typesError, setTypesError] = useState<string | null>(null);
 
   const handleCategoryChange = (categoryId: string, value: string) => {
     setCategories((prev) => ({ ...prev, [categoryId]: value }));
