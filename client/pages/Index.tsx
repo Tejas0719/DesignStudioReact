@@ -21,7 +21,9 @@ const Index: React.FC = () => {
   const [documentDesigns, setDocumentDesigns] = useState<DocumentDesignData[]>(
     [],
   );
-  const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([]);
+  const [documentTypes, setDocumentTypes] = useState<DocumentType[]>([
+    { value: "0", label: "Loading..." }
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingTypes, setIsLoadingTypes] = useState(true);
   const [error, setError] = useState<string | null>(null);
