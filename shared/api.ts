@@ -10,3 +10,23 @@
 export interface DemoResponse {
   message: string;
 }
+
+/**
+ * Document design data interface
+ */
+export interface DocumentDesignData {
+  id: string;
+  name: string;
+  description: string;
+  createdDate: string;
+  status: string;
+  version: string;
+}
+
+/**
+ * Response type for /api/document-designs/:type
+ */
+export interface DocumentDesignResponse {
+  documentType: string;
+  data: DocumentDesignData[];
+}
