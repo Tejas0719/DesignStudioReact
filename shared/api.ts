@@ -30,3 +30,19 @@ export interface DocumentDesignResponse {
   documentType: string;
   data: DocumentDesignData[];
 }
+
+/**
+ * Document type interface
+ */
+export interface DocumentType {
+  value: string;
+  label: string;
+  description?: string;
+}
+
+/**
+ * Response type for /api/document-types
+ */
+export interface DocumentTypesResponse {
+  types: DocumentType[];
+}
