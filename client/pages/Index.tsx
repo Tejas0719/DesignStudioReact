@@ -172,15 +172,29 @@ const Index: React.FC = () => {
                             handleDocumentTypeChange(e.target.value)
                           }
                           className="dms-select pr-8 w-full"
+                          disabled={isLoadingTypes}
                         >
-                          {documentTypes.map((type) => (
-                            <option key={type.value} value={type.value}>
-                              {type.label}
-                            </option>
-                          ))}
+                          {isLoadingTypes ? (
+                            <option value="0">Loading types...</option>
+                          ) : (
+                            documentTypes.map((type) => (
+                              <option key={type.value} value={type.value}>
+                                {type.label}
+                              </option>
+                            ))
+                          )}
                         </select>
-                        <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                        {isLoadingTypes ? (
+                          <Loader2 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 animate-spin text-gray-400" />
+                        ) : (
+                          <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                        )}
                       </div>
+                      {typesError && (
+                        <div className="text-red-500 text-sm mt-2">
+                          Error loading types: {typesError}
+                        </div>
+                      )}
                       <button className="dms-button-primary opacity-0 pointer-events-none hidden sm:block">
                         Add
                       </button>
