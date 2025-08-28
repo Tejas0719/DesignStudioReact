@@ -271,40 +271,95 @@ const Index: React.FC = () => {
 
                       {!isLoading && !error && documentDesigns.length > 0 && (
                         <div className="space-y-4">
-                          <h4 className="text-lg font-semibold text-dms-primary mb-4">
-                            Document Designs ({documentDesigns.length})
-                          </h4>
-                          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                            {documentDesigns.map((design) => (
-                              <div
-                                key={design.id}
-                                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-                              >
-                                <div className="flex items-start justify-between mb-2">
-                                  <h5 className="font-semibold text-gray-900 text-sm">
-                                    {design.name}
-                                  </h5>
-                                  <span
-                                    className={`inline-block px-2 py-1 text-xs rounded-full ${
-                                      design.status === "Active"
-                                        ? "bg-green-100 text-green-800"
-                                        : design.status === "Draft"
-                                          ? "bg-yellow-100 text-yellow-800"
-                                          : "bg-gray-100 text-gray-800"
-                                    }`}
-                                  >
-                                    {design.status}
-                                  </span>
-                                </div>
-                                <p className="text-gray-600 text-sm mb-3">
-                                  {design.description}
-                                </p>
-                                <div className="flex justify-between items-center text-xs text-gray-500">
-                                  <span>v{design.version}</span>
-                                  <span>{design.createdDate}</span>
-                                </div>
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-lg font-semibold text-dms-primary">
+                              Document Design List ({documentDesigns.length})
+                            </h4>
+                            <div className="flex gap-2">
+                              <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200 transition-colors">
+                                🔄 Reload
+                              </button>
+                              <button className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
+                                ➕ Add
+                              </button>
+                              <button className="px-3 py-1 bg-yellow-500 text-white rounded text-sm hover:bg-yellow-600 transition-colors">
+                                ✏️ Edit
+                              </button>
+                              <button className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600 transition-colors">
+                                🗑️ Delete
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Document Designs Table */}
+                          <div className="border border-gray-200 rounded-lg overflow-hidden">
+                            <div className="bg-gray-50 border-b border-gray-200">
+                              <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                  <thead className="bg-gray-50">
+                                    <tr>
+                                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                        Form Design ID
+                                      </th>
+                                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                        Document Design
+                                      </th>
+                                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                        MDM
+                                      </th>
+                                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                        MDM Schema
+                                      </th>
+                                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                        Status
+                                      </th>
+                                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Created Date
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="bg-white divide-y divide-gray-200">
+                                    {documentDesigns.map((design, index) => (
+                                      <tr
+                                        key={design.id}
+                                        className={`${
+                                          index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                                        } hover:bg-blue-50 cursor-pointer transition-colors`}
+                                      >
+                                        <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                          {(design as any).formDesignId || design.id}
+                                        </td>
+                                        <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-medium">
+                                          {(design as any).displayText || design.name}
+                                        </td>
+                                        <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                          {(design as any).isMDM ? "true" : "false"}
+                                        </td>
+                                        <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                          {(design as any).mdmSchemaName || ""}
+                                        </td>
+                                        <td className="px-4 py-3 text-sm border-r border-gray-200">
+                                          <span
+                                            className={`inline-block px-2 py-1 text-xs rounded-full ${
+                                              design.status === "Active"
+                                                ? "bg-green-100 text-green-800"
+                                                : design.status === "Draft"
+                                                  ? "bg-yellow-100 text-yellow-800"
+                                                  : "bg-gray-100 text-gray-800"
+                                            }`}
+                                          >
+                                            {design.status}
+                                          </span>
+                                        </td>
+                                        <td className="px-4 py-3 text-sm text-gray-900">
+                                          {design.createdDate}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
                               </div>
-                            ))}
+                            </div>
                           </div>
                         </div>
                       )}
