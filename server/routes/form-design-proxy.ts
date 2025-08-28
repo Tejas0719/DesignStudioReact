@@ -109,7 +109,9 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
       });
     }
 
-    console.log(`🔄 Proxying request to external FormDesignListByDocType API for docTypeId: ${docTypeId}...`);
+    console.log(
+      `🔄 Proxying request to external FormDesignListByDocType API for docTypeId: ${docTypeId}...`,
+    );
 
     const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?docTypeId=${docTypeId}`;
 
@@ -142,10 +144,12 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
         data: data.map((item: any) => ({
           id: item.id || item.formDesignId || item.designId,
           name: item.name || item.displayText || item.designName || item.title,
-          description: item.description || item.desc || item.name || item.displayText,
+          description:
+            item.description || item.desc || item.name || item.displayText,
           status: item.status || item.isActive ? "Active" : "Inactive",
           version: item.version || "1.0",
-          createdDate: item.createdDate || item.created || new Date().toLocaleDateString(),
+          createdDate:
+            item.createdDate || item.created || new Date().toLocaleDateString(),
           formDesignId: item.formDesignId || item.id,
           displayText: item.displayText || item.name,
           isMDM: item.isMDM || false,
@@ -163,10 +167,12 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
         data: items.map((item: any) => ({
           id: item.id || item.formDesignId || item.designId,
           name: item.name || item.displayText || item.designName || item.title,
-          description: item.description || item.desc || item.name || item.displayText,
+          description:
+            item.description || item.desc || item.name || item.displayText,
           status: item.status || item.isActive ? "Active" : "Inactive",
           version: item.version || "1.0",
-          createdDate: item.createdDate || item.created || new Date().toLocaleDateString(),
+          createdDate:
+            item.createdDate || item.created || new Date().toLocaleDateString(),
           formDesignId: item.formDesignId || item.id,
           displayText: item.displayText || item.name,
           isMDM: item.isMDM || false,
@@ -184,10 +190,12 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
 
     res.json(transformedData);
   } catch (error) {
-    console.error("❌ Error proxying to external FormDesignListByDocType API:", error);
+    console.error(
+      "❌ Error proxying to external FormDesignListByDocType API:",
+      error,
+    );
 
-    let errorMessage =
-      "Failed to fetch document designs from external API";
+    let errorMessage = "Failed to fetch document designs from external API";
     if (error instanceof Error) {
       if (error.message.includes("ECONNREFUSED")) {
         errorMessage =

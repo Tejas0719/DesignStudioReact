@@ -57,7 +57,9 @@ const Index: React.FC = () => {
 
     try {
       const cacheBuster = new Date().getTime();
-      const response = await fetch(`/api/form-design/designs-by-type/${type}?_t=${cacheBuster}`);
+      const response = await fetch(
+        `/api/form-design/designs-by-type/${type}?_t=${cacheBuster}`,
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch document designs");
       }
@@ -90,7 +92,9 @@ const Index: React.FC = () => {
 
     try {
       const cacheBuster = new Date().getTime();
-      const response = await fetch(`/api/form-design/document-types?_t=${cacheBuster}`);
+      const response = await fetch(
+        `/api/form-design/document-types?_t=${cacheBuster}`,
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch document types");
@@ -323,17 +327,23 @@ const Index: React.FC = () => {
                                       <tr
                                         key={design.id}
                                         className={`${
-                                          index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                                          index % 2 === 0
+                                            ? "bg-white"
+                                            : "bg-gray-50"
                                         } hover:bg-blue-50 cursor-pointer transition-colors`}
                                       >
                                         <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                          {(design as any).formDesignId || design.id}
+                                          {(design as any).formDesignId ||
+                                            design.id}
                                         </td>
                                         <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-medium">
-                                          {(design as any).displayText || design.name}
+                                          {(design as any).displayText ||
+                                            design.name}
                                         </td>
                                         <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                          {(design as any).isMDM ? "true" : "false"}
+                                          {(design as any).isMDM
+                                            ? "true"
+                                            : "false"}
                                         </td>
                                         <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
                                           {(design as any).mdmSchemaName || ""}

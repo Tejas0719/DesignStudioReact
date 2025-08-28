@@ -4,7 +4,10 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleDocumentDesigns } from "./routes/document-designs";
 import { handleDocumentTypes } from "./routes/document-types";
-import { handleDocumentDesignTypeProxy, handleFormDesignListByDocTypeProxy } from "./routes/form-design-proxy";
+import {
+  handleDocumentDesignTypeProxy,
+  handleFormDesignListByDocTypeProxy,
+} from "./routes/form-design-proxy";
 
 export function createServer() {
   const app = express();
@@ -23,7 +26,10 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
   app.get("/api/document-types", handleDocumentTypes);
   app.get("/api/form-design/document-types", handleDocumentDesignTypeProxy);
-  app.get("/api/form-design/designs-by-type/:docTypeId", handleFormDesignListByDocTypeProxy);
+  app.get(
+    "/api/form-design/designs-by-type/:docTypeId",
+    handleFormDesignListByDocTypeProxy,
+  );
   app.get("/api/document-designs/:type", handleDocumentDesigns);
 
   return app;
