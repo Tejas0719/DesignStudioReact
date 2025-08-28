@@ -182,3 +182,100 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
     });
   }
 };
+
+export const handleFormDesignVersionListProxy: RequestHandler = async (
+  req,
+  res,
+) => {
+  try {
+    const { formDesignId } = req.params;
+
+    if (!formDesignId || formDesignId === "0") {
+      return res.json({
+        data: [],
+        message: "No form design ID provided",
+      });
+    }
+
+    console.log(
+      `🔄 Proxying request to external FormDesignVersionList API for formDesignId: ${formDesignId}...`,
+    );
+
+    const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignVersionList?formDesignId=${formDesignId}`;
+
+    const response = await fetch(externalUrl, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      //@ts-ignore
+      rejectUnauthorized: false,
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `External API responded with ${response.status}: ${response.statusText}`,
+      );
+    }
+
+    const data = await response.json();
+    console.log("📦 External API response for FormDesignVersionList:", data);
+
+    let transformedData;
+    if (Array.isArray(data)) {
+      transformedData = {
+        data: data.map((item: any, index: number) => ({
+          index: index + 1,
+          environmentName: item.EnvironmentName ?? item.environmentName ?? "Unknown",
+          tenantId: item.TenantId ?? item.tenantId ?? 0,
+          formDesignVersionId: item.FormDesignVersionId ?? item.formDesignVersionId ?? item.id,
+          effectiveDate: item.EffectiveDate ?? item.effectiveDate ?? new Date().toLocaleDateString(),
+          version: item.Version ?? item.version ?? "1.0",
+          statusId: item.StatusId ?? item.statusId ?? 1,
+          statusText: item.StatusText ?? item.statusText ?? item.status ?? "Active",
+          formDesignId: item.FormDesignId ?? item.formDesignId ?? formDesignId,
+        })),
+      };
+    } else if (data.data || data.result || data.versions) {
+      const items = data.data || data.result || data.versions;
+      transformedData = {
+        data: items.map((item: any, index: number) => ({
+          index: index + 1,
+          environmentName: item.EnvironmentName ?? item.environmentName ?? "Unknown",
+          tenantId: item.TenantId ?? item.tenantId ?? 0,
+          formDesignVersionId: item.FormDesignVersionId ?? item.formDesignVersionId ?? item.id,
+          effectiveDate: item.EffectiveDate ?? item.effectiveDate ?? new Date().toLocaleDateString(),
+          version: item.Version ?? item.version ?? "1.0",
+          statusId: item.StatusId ?? item.statusId ?? 1,
+          statusText: item.StatusText ?? item.statusText ?? item.status ?? "Active",
+          formDesignId: item.FormDesignId ?? item.formDesignId ?? formDesignId,
+        })),
+      };
+    } else {
+      transformedData = { data: data };
+    }
+
+    res.json(transformedData);
+  } catch (error) {
+    console.error(
+      "❌ Error proxying to external FormDesignVersionList API:",
+      error,
+    );
+
+    let errorMessage = "Failed to fetch document design versions from external API";
+    if (error instanceof Error) {
+      if (error.message.includes("ECONNREFUSED")) {
+        errorMessage =
+          "External FormDesign API is not accessible. Please ensure the API server at https://localhost:7129 is running.";
+      } else if (error.message.includes("fetch failed")) {
+        errorMessage = "Network error connecting to external FormDesign API.";
+      }
+    }
+
+    res.json({
+      error: errorMessage,
+      data: [],
+    });
+  }
+};

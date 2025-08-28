@@ -7,6 +7,7 @@ import { handleDocumentTypes } from "./routes/document-types";
 import {
   handleDocumentDesignTypeProxy,
   handleFormDesignListByDocTypeProxy,
+  handleFormDesignVersionListProxy,
 } from "./routes/form-design-proxy";
 
 export function createServer() {
@@ -29,6 +30,10 @@ export function createServer() {
   app.get(
     "/api/form-design/designs-by-type/:docTypeId",
     handleFormDesignListByDocTypeProxy,
+  );
+  app.get(
+    "/api/form-design/design-versions/:formDesignId",
+    handleFormDesignVersionListProxy,
   );
   app.get("/api/document-designs/:type", handleDocumentDesigns);
 
