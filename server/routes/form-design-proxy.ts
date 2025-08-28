@@ -35,16 +35,16 @@ export const handleDocumentDesignTypeProxy: RequestHandler = async (
     // Assuming the external API returns an array of document types
     let transformedData;
 
-    if (Array.isArray(data)) {
-      // If it's already an array, use it directly
-      transformedData = {
-        types: data.map((item: any) => ({
-          value: item.id || item.value || item.typeId,
-          label: item.name || item.label || item.typeName,
-          description: item.description || item.desc,
-        })),
-      };
-    } else if (data.types || data.data || data.result) {
+      if (Array.isArray(data)) {
+          // If it's already an array, use it directly
+          transformedData = {
+              types: data.map((item: any) => ({
+                  value: item.DocumentDesignTypeID,
+                  label: item.DocumentDesignName,
+                  description: item.DocumentDesignName,
+              })),
+          };
+      } else if (data.types || data.data || data.result) {
       // If it's wrapped in an object
       const items = data.types || data.data || data.result;
       transformedData = {
@@ -113,7 +113,8 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
       `🔄 Proxying request to external FormDesignListByDocType API for docTypeId: ${docTypeId}...`,
     );
 
-    const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?docTypeId=${docTypeId}`;
+      const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?tenantId=101&docDesignType=${docTypeId}`;
+
 
     const response = await fetch(externalUrl, {
       method: "GET",
@@ -121,7 +122,6 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      // Ignore SSL certificate issues for localhost
       //@ts-ignore
       rejectUnauthorized: false,
     });
@@ -135,56 +135,27 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
     const data = await response.json();
     console.log("📦 External API response for FormDesignListByDocType:", data);
 
-    // Transform the response to match our expected format
     let transformedData;
-
     if (Array.isArray(data)) {
-      // If it's already an array, transform the items
       transformedData = {
         data: data.map((item: any) => ({
-          id: item.id || item.formDesignId || item.designId,
-          name: item.name || item.displayText || item.designName || item.title,
-          description:
-            item.description || item.desc || item.name || item.displayText,
-          status: item.status || item.isActive ? "Active" : "Inactive",
-          version: item.version || "1.0",
-          createdDate:
-            item.createdDate || item.created || new Date().toLocaleDateString(),
-          formDesignId: item.formDesignId || item.id,
-          displayText: item.displayText || item.name,
-          isMDM: item.isMDM || false,
-          mdmSchemaName: item.mdmSchemaName || "",
-          sourceDesign: item.sourceDesign || 0,
-          isAliasDesignMasterList: item.isAliasDesignMasterList || false,
-          usesAliasDesignMasterList: item.usesAliasDesignMasterList || false,
-          isSectionLock: item.isSectionLock || false,
-        })),
-      };
-    } else if (data.data || data.result || data.formDesigns) {
-      // If it's wrapped in an object
-      const items = data.data || data.result || data.formDesigns;
-      transformedData = {
-        data: items.map((item: any) => ({
-          id: item.id || item.formDesignId || item.designId,
-          name: item.name || item.displayText || item.designName || item.title,
-          description:
-            item.description || item.desc || item.name || item.displayText,
-          status: item.status || item.isActive ? "Active" : "Inactive",
-          version: item.version || "1.0",
-          createdDate:
-            item.createdDate || item.created || new Date().toLocaleDateString(),
-          formDesignId: item.formDesignId || item.id,
-          displayText: item.displayText || item.name,
-          isMDM: item.isMDM || false,
-          mdmSchemaName: item.mdmSchemaName || "",
-          sourceDesign: item.sourceDesign || 0,
-          isAliasDesignMasterList: item.isAliasDesignMasterList || false,
-          usesAliasDesignMasterList: item.usesAliasDesignMasterList || false,
-          isSectionLock: item.isSectionLock || false,
+          id: item.FormDesignId ?? item.id ?? item.formDesignId ?? item.designId,
+          name: item.FormDesignName ?? item.name ?? item.displayText ?? item.designName ?? item.title,
+          description: item.DisplayText ?? item.description ?? item.desc ?? item.FormDesignName ?? item.name,
+          status: typeof item.IsActive === "boolean" ? (item.IsActive ? "Active" : "Inactive") : (item.status ?? "Inactive"),
+          version: item.version ?? "1.0",
+          createdDate: item.AddedDate ?? item.createdDate ?? item.created ?? new Date().toLocaleDateString(),
+          formDesignId: item.FormDesignId ?? item.id,
+          displayText: item.DisplayText ?? item.name,
+          isMDM: item.IsMDM ?? item.isMDM ?? false,
+          mdmSchemaName: item.MDMSchemaName ?? item.mdmSchemaName ?? "",
+          sourceDesign: item.SourceDesign ?? item.sourceDesign ?? 0,
+          isAliasDesignMasterList: item.IsAliasDesignMasterList ?? item.isAliasDesignMasterList ?? false,
+          usesAliasDesignMasterList: item.UsesAliasDesignMasterList ?? item.usesAliasDesignMasterList ?? false,
+          isSectionLock: item.IsSectionLock ?? item.isSectionLock ?? false,
         })),
       };
     } else {
-      // If format is unknown, use as is
       transformedData = { data: data };
     }
 
@@ -205,7 +176,6 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
       }
     }
 
-    // Return error info with empty data
     res.json({
       error: errorMessage,
       data: [],
