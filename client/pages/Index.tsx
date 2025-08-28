@@ -56,13 +56,21 @@ const Index: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/document-designs/${type}`);
+      const cacheBuster = new Date().getTime();
+      const response = await fetch(`/api/form-design/designs-by-type/${type}?_t=${cacheBuster}`);
       if (!response.ok) {
         throw new Error("Failed to fetch document designs");
       }
 
       const data: DocumentDesignResponse = await response.json();
-      setDocumentDesigns(data.data);
+
+      // Handle error response from proxy
+      if (data.error) {
+        setError(data.error);
+        setDocumentDesigns([]);
+      } else {
+        setDocumentDesigns(data.data);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       setDocumentDesigns([]);
