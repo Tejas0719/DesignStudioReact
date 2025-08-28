@@ -52,8 +52,11 @@ const Index: React.FC = () => {
   const [typesError, setTypesError] = useState<string | null>(null);
 
   // Document Design Version states
-  const [selectedDesign, setSelectedDesign] = useState<DocumentDesignData | null>(null);
-  const [designVersions, setDesignVersions] = useState<DocumentDesignVersion[]>([]);
+  const [selectedDesign, setSelectedDesign] =
+    useState<DocumentDesignData | null>(null);
+  const [designVersions, setDesignVersions] = useState<DocumentDesignVersion[]>(
+    [],
+  );
   const [isLoadingVersions, setIsLoadingVersions] = useState(false);
   const [versionsError, setVersionsError] = useState<string | null>(null);
 
@@ -105,10 +108,11 @@ const Index: React.FC = () => {
   };
 
   const fetchDocumentDesignVersions = async (design: DocumentDesignData) => {
-    const formDesignId = (design as any).FormDesignId ?? 
-                        design.id ?? 
-                        (design as any).formDesignId ?? 
-                        (design as any).designId;
+    const formDesignId =
+      (design as any).FormDesignId ??
+      design.id ??
+      (design as any).formDesignId ??
+      (design as any).designId;
 
     if (!formDesignId) {
       setVersionsError("No form design ID found for this design");
@@ -137,7 +141,9 @@ const Index: React.FC = () => {
         setDesignVersions(data.data);
       }
     } catch (err) {
-      setVersionsError(err instanceof Error ? err.message : "An error occurred");
+      setVersionsError(
+        err instanceof Error ? err.message : "An error occurred",
+      );
       setDesignVersions([]);
     } finally {
       setIsLoadingVersions(false);
@@ -401,7 +407,9 @@ const Index: React.FC = () => {
                                     {documentDesigns.map((design, index) => (
                                       <tr
                                         key={design.id}
-                                        onClick={() => handleDesignRowClick(design)}
+                                        onClick={() =>
+                                          handleDesignRowClick(design)
+                                        }
                                         className={`${
                                           index % 2 === 0
                                             ? "bg-white"
@@ -471,7 +479,9 @@ const Index: React.FC = () => {
                       <div className="border-b border-dms-border pb-4 mb-6">
                         <div className="flex items-center justify-between">
                           <h3 className="text-lg font-semibold text-dms-primary bg-white px-4 py-2 border border-dms-border rounded-t-lg">
-                            Document Design Version List - {selectedDesign.name || (selectedDesign as any).displayText}
+                            Document Design Version List -{" "}
+                            {selectedDesign.name ||
+                              (selectedDesign as any).displayText}
                           </h3>
                           <button
                             onClick={handleCloseVersions}
@@ -495,140 +505,152 @@ const Index: React.FC = () => {
 
                         {versionsError && (
                           <div className="text-center py-8">
-                            <p className="text-red-500 text-sm">{versionsError}</p>
-                          </div>
-                        )}
-
-                        {!isLoadingVersions && !versionsError && designVersions.length === 0 && (
-                          <div className="text-center py-8">
-                            <p className="text-gray-500 text-sm">
-                              No versions found for this design
+                            <p className="text-red-500 text-sm">
+                              {versionsError}
                             </p>
                           </div>
                         )}
 
-                        {!isLoadingVersions && !versionsError && designVersions.length > 0 && (
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between mb-4">
-                              <h4 className="text-lg font-semibold text-dms-primary">
-                                Version List ({designVersions.length})
-                              </h4>
-                              <div className="flex gap-2">
-                                <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200 transition-colors">
-                                  🔄 Reload Grid
-                                </button>
-                                <button className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
-                                  ➕ Add
-                                </button>
-                                <button className="px-3 py-1 bg-yellow-500 text-white rounded text-sm hover:bg-yellow-600 transition-colors">
-                                  ✏️ Edit
-                                </button>
-                                <button className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600 transition-colors">
-                                  🗑️ Delete
-                                </button>
-                                <button className="px-3 py-1 bg-green-500 text-white rounded text-sm hover:bg-green-600 transition-colors">
-                                  ✅ Finalized
-                                </button>
-                              </div>
+                        {!isLoadingVersions &&
+                          !versionsError &&
+                          designVersions.length === 0 && (
+                            <div className="text-center py-8">
+                              <p className="text-gray-500 text-sm">
+                                No versions found for this design
+                              </p>
                             </div>
+                          )}
 
-                            {/* Document Design Versions Table */}
-                            <div className="border border-gray-200 rounded-lg overflow-hidden">
-                              <div className="bg-gray-50 border-b border-gray-200">
-                                <div className="overflow-x-auto">
-                                  <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
-                                      <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          Index
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          Environment Name
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          TenantId
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          FormDesignVersionId
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          Effective Date
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          Version
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          StatusId
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                                          Status
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                          Action
-                                        </th>
-                                      </tr>
-                                    </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200">
-                                      {designVersions.map((version, index) => (
-                                        <tr
-                                          key={`${version.formDesignVersionId}-${version.environmentName}`}
-                                          className={`${
-                                            index % 2 === 0
-                                              ? "bg-white"
-                                              : "bg-gray-50"
-                                          } hover:bg-blue-50 transition-colors`}
-                                        >
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                            {version.index}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-medium">
-                                            {version.environmentName}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                            {version.tenantId}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                            {version.formDesignVersionId}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                            {version.effectiveDate}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                            {version.version}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
-                                            {version.statusId}
-                                          </td>
-                                          <td className="px-4 py-3 text-sm border-r border-gray-200">
-                                            <span
-                                              className={`inline-block px-2 py-1 text-xs rounded-full ${
-                                                version.statusText === "Finalized" || version.statusText === "Active"
-                                                  ? "bg-green-100 text-green-800"
-                                                  : version.statusText === "Draft"
-                                                    ? "bg-yellow-100 text-yellow-800"
-                                                    : "bg-gray-100 text-gray-800"
-                                              }`}
-                                            >
-                                              {version.statusText}
-                                            </span>
-                                          </td>
-                                          <td className="px-4 py-3 text-sm text-gray-900">
-                                            <button
-                                              className="p-1 text-gray-500 hover:text-blue-600 transition-colors"
-                                              title="View Design"
-                                            >
-                                              <Eye className="h-4 w-4" />
-                                            </button>
-                                          </td>
+                        {!isLoadingVersions &&
+                          !versionsError &&
+                          designVersions.length > 0 && (
+                            <div className="space-y-4">
+                              <div className="flex items-center justify-between mb-4">
+                                <h4 className="text-lg font-semibold text-dms-primary">
+                                  Version List ({designVersions.length})
+                                </h4>
+                                <div className="flex gap-2">
+                                  <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded text-sm hover:bg-gray-200 transition-colors">
+                                    🔄 Reload Grid
+                                  </button>
+                                  <button className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors">
+                                    ➕ Add
+                                  </button>
+                                  <button className="px-3 py-1 bg-yellow-500 text-white rounded text-sm hover:bg-yellow-600 transition-colors">
+                                    ✏️ Edit
+                                  </button>
+                                  <button className="px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600 transition-colors">
+                                    🗑️ Delete
+                                  </button>
+                                  <button className="px-3 py-1 bg-green-500 text-white rounded text-sm hover:bg-green-600 transition-colors">
+                                    ✅ Finalized
+                                  </button>
+                                </div>
+                              </div>
+
+                              {/* Document Design Versions Table */}
+                              <div className="border border-gray-200 rounded-lg overflow-hidden">
+                                <div className="bg-gray-50 border-b border-gray-200">
+                                  <div className="overflow-x-auto">
+                                    <table className="min-w-full divide-y divide-gray-200">
+                                      <thead className="bg-gray-50">
+                                        <tr>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            Index
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            Environment Name
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            TenantId
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            FormDesignVersionId
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            Effective Date
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            Version
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            StatusId
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                                            Status
+                                          </th>
+                                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Action
+                                          </th>
                                         </tr>
-                                      ))}
-                                    </tbody>
-                                  </table>
+                                      </thead>
+                                      <tbody className="bg-white divide-y divide-gray-200">
+                                        {designVersions.map(
+                                          (version, index) => (
+                                            <tr
+                                              key={`${version.formDesignVersionId}-${version.environmentName}`}
+                                              className={`${
+                                                index % 2 === 0
+                                                  ? "bg-white"
+                                                  : "bg-gray-50"
+                                              } hover:bg-blue-50 transition-colors`}
+                                            >
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                                {version.index}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 font-medium">
+                                                {version.environmentName}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                                {version.tenantId}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                                {version.formDesignVersionId}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                                {version.effectiveDate}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                                {version.version}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200">
+                                                {version.statusId}
+                                              </td>
+                                              <td className="px-4 py-3 text-sm border-r border-gray-200">
+                                                <span
+                                                  className={`inline-block px-2 py-1 text-xs rounded-full ${
+                                                    version.statusText ===
+                                                      "Finalized" ||
+                                                    version.statusText ===
+                                                      "Active"
+                                                      ? "bg-green-100 text-green-800"
+                                                      : version.statusText ===
+                                                          "Draft"
+                                                        ? "bg-yellow-100 text-yellow-800"
+                                                        : "bg-gray-100 text-gray-800"
+                                                  }`}
+                                                >
+                                                  {version.statusText}
+                                                </span>
+                                              </td>
+                                              <td className="px-4 py-3 text-sm text-gray-900">
+                                                <button
+                                                  className="p-1 text-gray-500 hover:text-blue-600 transition-colors"
+                                                  title="View Design"
+                                                >
+                                                  <Eye className="h-4 w-4" />
+                                                </button>
+                                              </td>
+                                            </tr>
+                                          ),
+                                        )}
+                                      </tbody>
+                                    </table>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          )}
                       </div>
                     </div>
                   )}

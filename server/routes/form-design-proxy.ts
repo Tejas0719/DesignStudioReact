@@ -35,16 +35,16 @@ export const handleDocumentDesignTypeProxy: RequestHandler = async (
     // Assuming the external API returns an array of document types
     let transformedData;
 
-      if (Array.isArray(data)) {
-          // If it's already an array, use it directly
-          transformedData = {
-              types: data.map((item: any) => ({
-                  value: item.DocumentDesignTypeID,
-                  label: item.DocumentDesignName,
-                  description: item.DocumentDesignName,
-              })),
-          };
-      } else if (data.types || data.data || data.result) {
+    if (Array.isArray(data)) {
+      // If it's already an array, use it directly
+      transformedData = {
+        types: data.map((item: any) => ({
+          value: item.DocumentDesignTypeID,
+          label: item.DocumentDesignName,
+          description: item.DocumentDesignName,
+        })),
+      };
+    } else if (data.types || data.data || data.result) {
       // If it's wrapped in an object
       const items = data.types || data.data || data.result;
       transformedData = {
@@ -113,8 +113,7 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
       `🔄 Proxying request to external FormDesignListByDocType API for docTypeId: ${docTypeId}...`,
     );
 
-      const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?tenantId=101&docDesignType=${docTypeId}`;
-
+    const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?tenantId=101&docDesignType=${docTypeId}`;
 
     const response = await fetch(externalUrl, {
       method: "GET",
@@ -139,19 +138,45 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
     if (Array.isArray(data)) {
       transformedData = {
         data: data.map((item: any) => ({
-          id: item.FormDesignId ?? item.id ?? item.formDesignId ?? item.designId,
-          name: item.FormDesignName ?? item.name ?? item.displayText ?? item.designName ?? item.title,
-          description: item.DisplayText ?? item.description ?? item.desc ?? item.FormDesignName ?? item.name,
-          status: typeof item.IsActive === "boolean" ? (item.IsActive ? "Active" : "Inactive") : (item.status ?? "Inactive"),
+          id:
+            item.FormDesignId ?? item.id ?? item.formDesignId ?? item.designId,
+          name:
+            item.FormDesignName ??
+            item.name ??
+            item.displayText ??
+            item.designName ??
+            item.title,
+          description:
+            item.DisplayText ??
+            item.description ??
+            item.desc ??
+            item.FormDesignName ??
+            item.name,
+          status:
+            typeof item.IsActive === "boolean"
+              ? item.IsActive
+                ? "Active"
+                : "Inactive"
+              : (item.status ?? "Inactive"),
           version: item.version ?? "1.0",
-          createdDate: item.AddedDate ?? item.createdDate ?? item.created ?? new Date().toLocaleDateString(),
+          createdDate:
+            item.AddedDate ??
+            item.createdDate ??
+            item.created ??
+            new Date().toLocaleDateString(),
           formDesignId: item.FormDesignId ?? item.id,
           displayText: item.DisplayText ?? item.name,
           isMDM: item.IsMDM ?? item.isMDM ?? false,
           mdmSchemaName: item.MDMSchemaName ?? item.mdmSchemaName ?? "",
           sourceDesign: item.SourceDesign ?? item.sourceDesign ?? 0,
-          isAliasDesignMasterList: item.IsAliasDesignMasterList ?? item.isAliasDesignMasterList ?? false,
-          usesAliasDesignMasterList: item.UsesAliasDesignMasterList ?? item.usesAliasDesignMasterList ?? false,
+          isAliasDesignMasterList:
+            item.IsAliasDesignMasterList ??
+            item.isAliasDesignMasterList ??
+            false,
+          usesAliasDesignMasterList:
+            item.UsesAliasDesignMasterList ??
+            item.usesAliasDesignMasterList ??
+            false,
           isSectionLock: item.IsSectionLock ?? item.isSectionLock ?? false,
         })),
       };
@@ -227,13 +252,19 @@ export const handleFormDesignVersionListProxy: RequestHandler = async (
       transformedData = {
         data: data.map((item: any, index: number) => ({
           index: index + 1,
-          environmentName: item.EnvironmentName ?? item.environmentName ?? "Unknown",
+          environmentName:
+            item.EnvironmentName ?? item.environmentName ?? "Unknown",
           tenantId: item.TenantId ?? item.tenantId ?? 0,
-          formDesignVersionId: item.FormDesignVersionId ?? item.formDesignVersionId ?? item.id,
-          effectiveDate: item.EffectiveDate ?? item.effectiveDate ?? new Date().toLocaleDateString(),
+          formDesignVersionId:
+            item.FormDesignVersionId ?? item.formDesignVersionId ?? item.id,
+          effectiveDate:
+            item.EffectiveDate ??
+            item.effectiveDate ??
+            new Date().toLocaleDateString(),
           version: item.Version ?? item.version ?? "1.0",
           statusId: item.StatusId ?? item.statusId ?? 1,
-          statusText: item.StatusText ?? item.statusText ?? item.status ?? "Active",
+          statusText:
+            item.StatusText ?? item.statusText ?? item.status ?? "Active",
           formDesignId: item.FormDesignId ?? item.formDesignId ?? formDesignId,
         })),
       };
@@ -242,13 +273,19 @@ export const handleFormDesignVersionListProxy: RequestHandler = async (
       transformedData = {
         data: items.map((item: any, index: number) => ({
           index: index + 1,
-          environmentName: item.EnvironmentName ?? item.environmentName ?? "Unknown",
+          environmentName:
+            item.EnvironmentName ?? item.environmentName ?? "Unknown",
           tenantId: item.TenantId ?? item.tenantId ?? 0,
-          formDesignVersionId: item.FormDesignVersionId ?? item.formDesignVersionId ?? item.id,
-          effectiveDate: item.EffectiveDate ?? item.effectiveDate ?? new Date().toLocaleDateString(),
+          formDesignVersionId:
+            item.FormDesignVersionId ?? item.formDesignVersionId ?? item.id,
+          effectiveDate:
+            item.EffectiveDate ??
+            item.effectiveDate ??
+            new Date().toLocaleDateString(),
           version: item.Version ?? item.version ?? "1.0",
           statusId: item.StatusId ?? item.statusId ?? 1,
-          statusText: item.StatusText ?? item.statusText ?? item.status ?? "Active",
+          statusText:
+            item.StatusText ?? item.statusText ?? item.status ?? "Active",
           formDesignId: item.FormDesignId ?? item.formDesignId ?? formDesignId,
         })),
       };
@@ -263,7 +300,8 @@ export const handleFormDesignVersionListProxy: RequestHandler = async (
       error,
     );
 
-    let errorMessage = "Failed to fetch document design versions from external API";
+    let errorMessage =
+      "Failed to fetch document design versions from external API";
     if (error instanceof Error) {
       if (error.message.includes("ECONNREFUSED")) {
         errorMessage =
