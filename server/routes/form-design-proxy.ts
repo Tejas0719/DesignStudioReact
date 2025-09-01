@@ -113,7 +113,7 @@ export const handleFormDesignListByDocTypeProxy: RequestHandler = async (
       `🔄 Proxying request to external FormDesignListByDocType API for docTypeId: ${docTypeId}...`,
     );
 
-    const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?tenantId=101&docDesignType=${docTypeId}`;
+    const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignListByDocType?tenantId=1&docDesignType=${docTypeId}`;
 
     const response = await fetch(externalUrl, {
       method: "GET",
@@ -226,7 +226,7 @@ export const handleFormDesignVersionListProxy: RequestHandler = async (
       `🔄 Proxying request to external FormDesignVersionList API for formDesignId: ${formDesignId}...`,
     );
 
-    const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignVersionList?formDesignId=${formDesignId}`;
+      const externalUrl = `${EXTERNAL_API_BASE}FormDesign/FormDesignVersionList?tenantId=1&formDesignId=${formDesignId}`;
 
     const response = await fetch(externalUrl, {
       method: "GET",
