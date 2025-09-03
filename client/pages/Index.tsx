@@ -276,6 +276,7 @@ const Index: React.FC = () => {
 
             {/* Tab Content */}
             <div className="p-4 sm:p-6">
+              <div className="flex flex-col relative mt-5 h-auto">test..</div>
               {activeTab === "documents" && (
                 <>
                   {/* Document Design Tab */}
